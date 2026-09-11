@@ -1,17 +1,31 @@
-# fuelpass_library
+# FuelPass Library
 
-A new Flutter project.
+FuelPass Library is a Flutter mobile application designed to help Sri Lankan vehicle owners quickly access and manage their Fuel Pass QR code images.
 
-## Getting Started
+## Problem
 
-This project is a starting point for a Flutter application.
+Vehicle owners, especially those who own multiple vehicles, may save their Fuel Pass QR codes in their phone gallery. Finding the correct QR code quickly at a fuel station can be difficult.
 
-A few resources to get you started if this is your first Flutter project:
+## Solution
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+FuelPass Library allows users to:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* Save multiple vehicle details
+* Save the original Fuel Pass QR code as an image
+* Quickly access the QR code for a selected vehicle
+* Display the QR code in full-screen mode
+* Access saved QR codes without an internet connection
+
+## Technologies
+
+* Flutter
+* Dart
+* Express.js
+* Next.js
+* PostgreSQL
+
+## Main Goal
+
+To provide a simple and convenient way for vehicle owners to keep their Fuel Pass QR codes organized and quickly accessible when needed.
+
+> This is an independent application and is not affiliated with or endorsed by the Government of Sri Lanka.
