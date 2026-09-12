@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'FuelMate LK',
+          'FuelPass Library',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
