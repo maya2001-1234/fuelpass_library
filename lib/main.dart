@@ -18,12 +18,9 @@ class FuelMateApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'FuelMate LK',
+      title: 'FuelPass Library',
 
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        useMaterial3: true,
-      ),
+      theme: ThemeData(primarySwatch: Colors.green, useMaterial3: true),
 
       home: const HomeScreen(),
     );
