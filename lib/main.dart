@@ -665,7 +665,7 @@ class _AddPassPageState extends State<AddPassPage> {
             ),
             const SizedBox(height: 12),
             DropdownButtonFormField<String>(
-              value: vehicleType,
+              initialValue: vehicleType,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.directions_car_outlined),
                 labelText: 'Vehicle type',
