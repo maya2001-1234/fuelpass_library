@@ -136,11 +136,31 @@ class _MainShellState extends State<MainShell> {
         selectedIndex: index,
         onDestinationSelected: (value) => setState(() => index = value),
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.qr_code_2_outlined), selectedIcon: Icon(Icons.qr_code_2), label: 'Passes'),
-          NavigationDestination(icon: Icon(Icons.add_circle_outline), selectedIcon: Icon(Icons.add_circle), label: 'Add'),
-          NavigationDestination(icon: Icon(Icons.bar_chart_outlined), selectedIcon: Icon(Icons.bar_chart), label: 'Stats'),
-          NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: 'Settings'),
+          NavigationDestination(
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.qr_code_2_outlined),
+            selectedIcon: Icon(Icons.qr_code_2),
+            label: 'Passes',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.add_circle_outline),
+            selectedIcon: Icon(Icons.add_circle),
+            label: 'Add',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.bar_chart_outlined),
+            selectedIcon: Icon(Icons.bar_chart),
+            label: 'Stats',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings_outlined),
+            selectedIcon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
         ],
       ),
     );
@@ -159,8 +179,12 @@ class HomePage extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: box.listenable(),
       builder: (context, Box box, _) {
-        final passes = box.values.map((e) => Map<String, dynamic>.from(e as Map)).toList();
-        passes.sort((a, b) => (b['createdAt'] as int).compareTo(a['createdAt'] as int));
+        final passes = box.values
+            .map((e) => Map<String, dynamic>.from(e as Map))
+            .toList();
+        passes.sort(
+          (a, b) => (b['createdAt'] as int).compareTo(a['createdAt'] as int),
+        );
 
         return SafeArea(
           child: CustomScrollView(
@@ -187,7 +211,9 @@ class HomePage extends StatelessWidget {
                     FilledButton.icon(
                       onPressed: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => const AddPassPage()),
+                          MaterialPageRoute(
+                            builder: (_) => const AddPassPage(),
+                          ),
                         );
                       },
                       icon: const Icon(Icons.add),
@@ -206,7 +232,10 @@ class HomePage extends StatelessWidget {
                       children: [
                         const Text(
                           'My Fuel Passes',
-                          style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
+                          style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                         TextButton(
                           onPressed: onOpenPasses,
@@ -217,16 +246,20 @@ class HomePage extends StatelessWidget {
                     if (passes.isEmpty)
                       _emptyState(context)
                     else
-                      ...passes.take(3).map(
-                        (pass) => PassCard(
-                          pass: pass,
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => PassDetailsPage(passKey: _findKey(box, pass)),
+                      ...passes
+                          .take(3)
+                          .map(
+                            (pass) => PassCard(
+                              pass: pass,
+                              onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => PassDetailsPage(
+                                    passKey: _findKey(box, pass),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
                   ]),
                 ),
               ),
@@ -263,7 +296,7 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Text(
-                  'Your Fuel Passes\\nIn One Place',
+                  'Your Fuel Passes\nIn One Place',
                   style: TextStyle(
                     fontSize: 21,
                     fontWeight: FontWeight.w800,
@@ -345,7 +378,10 @@ class _PassesPageState extends State<PassesPage> {
           return CustomScrollView(
             slivers: [
               const SliverAppBar(
-                title: Text('My Fuel Passes', style: TextStyle(fontWeight: FontWeight.w700)),
+                title: Text(
+                  'My Fuel Passes',
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
               ),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(18, 4, 18, 24),
@@ -370,7 +406,8 @@ class _PassesPageState extends State<PassesPage> {
                           pass: pass,
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => PassDetailsPage(passKey: _findKey(box, pass)),
+                              builder: (_) =>
+                                  PassDetailsPage(passKey: _findKey(box, pass)),
                             ),
                           ),
                         ),
@@ -416,7 +453,9 @@ class PassCard extends StatelessWidget {
           ),
         ),
         title: Text(
-          pass['name']?.toString().isNotEmpty == true ? pass['name'] : 'Fuel Pass',
+          pass['name']?.toString().isNotEmpty == true
+              ? pass['name']
+              : 'Fuel Pass',
           style: const TextStyle(fontWeight: FontWeight.w700),
         ),
         subtitle: Text(pass['plate']?.toString() ?? 'No plate number'),
@@ -425,9 +464,13 @@ class PassCard extends StatelessWidget {
           children: [
             Chip(
               label: Text(active ? 'Active' : 'Inactive'),
-              backgroundColor: active ? const Color(0xFFE0F4EA) : const Color(0xFFFFF1D6),
+              backgroundColor: active
+                  ? const Color(0xFFE0F4EA)
+                  : const Color(0xFFFFF1D6),
               labelStyle: TextStyle(
-                color: active ? const Color(0xFF247C54) : const Color(0xFF8A6200),
+                color: active
+                    ? const Color(0xFF247C54)
+                    : const Color(0xFF8A6200),
                 fontWeight: FontWeight.w600,
               ),
               side: BorderSide.none,
@@ -576,7 +619,11 @@ class _AddPassPageState extends State<AddPassPage> {
                     ? const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.add_photo_alternate_outlined, size: 48, color: kBlue),
+                          Icon(
+                            Icons.add_photo_alternate_outlined,
+                            size: 48,
+                            color: kBlue,
+                          ),
                           SizedBox(height: 10),
                           Text(
                             'Upload QR Code Image',
@@ -591,10 +638,7 @@ class _AddPassPageState extends State<AddPassPage> {
                       )
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(18),
-                        child: Image.memory(
-                          imageBytes!,
-                          fit: BoxFit.contain,
-                        ),
+                        child: Image.memory(imageBytes!, fit: BoxFit.contain),
                       ),
               ),
             ),
@@ -606,8 +650,9 @@ class _AddPassPageState extends State<AddPassPage> {
                 labelText: 'Vehicle name',
                 hintText: 'e.g. My Car',
               ),
-              validator: (value) =>
-                  value == null || value.trim().isEmpty ? 'Enter a vehicle name' : null,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? 'Enter a vehicle name'
+                  : null,
             ),
             const SizedBox(height: 12),
             TextFormField(
@@ -628,10 +673,14 @@ class _AddPassPageState extends State<AddPassPage> {
               items: const [
                 DropdownMenuItem(value: 'Car', child: Text('Car')),
                 DropdownMenuItem(value: 'Van', child: Text('Van')),
-                DropdownMenuItem(value: 'Motorcycle', child: Text('Motorcycle')),
+                DropdownMenuItem(
+                  value: 'Motorcycle',
+                  child: Text('Motorcycle'),
+                ),
                 DropdownMenuItem(value: 'Truck', child: Text('Truck')),
               ],
-              onChanged: (value) => setState(() => vehicleType = value ?? 'Car'),
+              onChanged: (value) =>
+                  setState(() => vehicleType = value ?? 'Car'),
             ),
             const SizedBox(height: 12),
             TextFormField(
@@ -696,14 +745,19 @@ class PassDetailsPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Fuel Pass Details', style: TextStyle(fontWeight: FontWeight.w700)),
+            title: const Text(
+              'Fuel Pass Details',
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
             actions: [
               PopupMenuButton<String>(
                 onSelected: (value) {
                   if (value == 'edit') {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => AddPassPage(passKey: passKey)),
+                      MaterialPageRoute(
+                        builder: (_) => AddPassPage(passKey: passKey),
+                      ),
                     );
                   } else if (value == 'delete') {
                     _delete(context, box);
@@ -738,15 +792,22 @@ class PassDetailsPage extends StatelessWidget {
                               pass['name']?.toString().isNotEmpty == true
                                   ? pass['name']
                                   : 'Fuel Pass',
-                              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                             const SizedBox(height: 2),
-                            Text(pass['plate']?.toString() ?? 'No plate number'),
+                            Text(
+                              pass['plate']?.toString() ?? 'No plate number',
+                            ),
                           ],
                         ),
                       ),
                       Chip(
-                        label: Text(pass['active'] == true ? 'Active' : 'Inactive'),
+                        label: Text(
+                          pass['active'] == true ? 'Active' : 'Inactive',
+                        ),
                         backgroundColor: pass['active'] == true
                             ? const Color(0xFFE0F4EA)
                             : const Color(0xFFFFF1D6),
@@ -805,7 +866,9 @@ class PassDetailsPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => AddPassPage(passKey: passKey)),
+                    MaterialPageRoute(
+                      builder: (_) => AddPassPage(passKey: passKey),
+                    ),
                   );
                 },
                 icon: const Icon(Icons.edit_outlined),
@@ -823,7 +886,10 @@ class PassDetailsPage extends StatelessWidget {
               TextButton.icon(
                 onPressed: () => _delete(context, box),
                 icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
-                label: const Text('Delete Pass', style: TextStyle(color: Colors.redAccent)),
+                label: const Text(
+                  'Delete Pass',
+                  style: TextStyle(color: Colors.redAccent),
+                ),
               ),
             ],
           ),
@@ -837,9 +903,14 @@ class PassDetailsPage extends StatelessWidget {
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('Delete fuel pass?'),
-        content: const Text('This removes the saved QR image and details from this device.'),
+        content: const Text(
+          'This removes the saved QR image and details from this device.',
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: Colors.redAccent),
             onPressed: () => Navigator.pop(context, true),
@@ -888,7 +959,9 @@ class StatisticsPage extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: box.listenable(),
         builder: (context, Box box, _) {
-          final passes = box.values.map((e) => Map<String, dynamic>.from(e as Map)).toList();
+          final passes = box.values
+              .map((e) => Map<String, dynamic>.from(e as Map))
+              .toList();
           final total = passes.length;
           final active = passes.where((p) => p['active'] == true).length;
           final inactive = total - active;
@@ -902,23 +975,48 @@ class StatisticsPage extends StatelessWidget {
           return ListView(
             padding: const EdgeInsets.fromLTRB(18, 12, 18, 30),
             children: [
-              const Text('Statistics', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800)),
+              const Text(
+                'Statistics',
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800),
+              ),
               const SizedBox(height: 6),
               const Text(
                 'A quick view of your saved fuel passes.',
                 style: TextStyle(color: kSecondaryText),
               ),
               const SizedBox(height: 18),
-              _statCard('Total Passes', '$total', Icons.qr_code_2_rounded, kBlue),
+              _statCard(
+                'Total Passes',
+                '$total',
+                Icons.qr_code_2_rounded,
+                kBlue,
+              ),
               Row(
                 children: [
-                  Expanded(child: _smallStat('Active', '$active', Icons.check_circle_outline, const Color(0xFF4CB98A))),
+                  Expanded(
+                    child: _smallStat(
+                      'Active',
+                      '$active',
+                      Icons.check_circle_outline,
+                      const Color(0xFF4CB98A),
+                    ),
+                  ),
                   const SizedBox(width: 12),
-                  Expanded(child: _smallStat('Inactive', '$inactive', Icons.schedule_outlined, kGold)),
+                  Expanded(
+                    child: _smallStat(
+                      'Inactive',
+                      '$inactive',
+                      Icons.schedule_outlined,
+                      kGold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 18),
-              const Text('Passes by Vehicle Type', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+              const Text(
+                'Passes by Vehicle Type',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+              ),
               const SizedBox(height: 8),
               ...counts.entries.map(
                 (entry) => Card(
@@ -927,7 +1025,10 @@ class StatisticsPage extends StatelessWidget {
                     title: Text(entry.key),
                     trailing: Text(
                       '${entry.value}',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -956,7 +1057,13 @@ class StatisticsPage extends StatelessWidget {
               children: [
                 Text(title, style: const TextStyle(color: kSecondaryText)),
                 const SizedBox(height: 2),
-                Text(value, style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w800)),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
               ],
             ),
           ],
@@ -975,7 +1082,10 @@ class StatisticsPage extends StatelessWidget {
             Icon(icon, color: color),
             const SizedBox(height: 12),
             Text(title, style: const TextStyle(color: kSecondaryText)),
-            Text(value, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
+            Text(
+              value,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800),
+            ),
           ],
         ),
       ),
@@ -1012,7 +1122,10 @@ class SettingsPage extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.fromLTRB(18, 12, 18, 30),
         children: [
-          const Text('Settings', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800)),
+          const Text(
+            'Settings',
+            style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800),
+          ),
           const SizedBox(height: 18),
           _sectionTitle('App'),
           Card(
@@ -1048,7 +1161,10 @@ class SettingsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('FuelPass Library', style: TextStyle(fontWeight: FontWeight.w700)),
+                  Text(
+                    'FuelPass Library',
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
                   SizedBox(height: 6),
                   Text('Version 1.0.0'),
                   SizedBox(height: 6),
