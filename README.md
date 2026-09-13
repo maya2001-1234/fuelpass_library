@@ -20,9 +20,6 @@ FuelPass Library allows users to:
 
 * Flutter
 * Dart
-* Express.js
-* Next.js
-* PostgreSQL
 
 ## Main Goal
 
